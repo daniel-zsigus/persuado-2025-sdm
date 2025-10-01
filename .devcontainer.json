@@ -1,0 +1,21 @@
+{
+  "name": "Atlassian Forge Dev Container",
+  "image": "atlassian/forge-devcontainer:latest",
+  "features": {},
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "yoavbls.pretty-ts-errors",
+        "sonarsource.sonarlint-vscode",
+        "steoates.autoimport",
+        "usernamehw.errorlens"
+      ],
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+      }
+    }
+  },
+  "remoteUser": "node"
+}
