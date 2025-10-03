@@ -1,4 +1,5 @@
 import api, { route } from "@forge/api";
+import { OvertimeConfig } from "../shared/types";
 
 class BackendService {
   async getData() {
@@ -9,14 +10,17 @@ class BackendService {
       throw new Error(`Jira API error: ${response.status} ${response.statusText}`);
     }
 
-    let data = await response.json();
-    data = data["fields"]["description"];
+    const responseJson = await response.json();
+    const description = responseJson["fields"]["description"];
 
-    const jsonData = JSON.parse(data);
-    const roles = jsonData["roles"] ?? [];
-    const colleagues = jsonData["colleagues"] ?? [];
+    const jsonData: OvertimeConfig = JSON.parse(description);
+    const roles = jsonData.roles ?? [];
+    const colleagues = jsonData.colleagues ?? [];
 
-    const res = { roles: [JSON.stringify(roles)], colleagues: [JSON.stringify(colleagues)] };
+    const holidaysExcluded = jsonData.holidays_excluded;
+    const holidaysIncluded = jsonData.holidays_included;
+
+    const res = { roles, colleagues, holidays_excluded: holidaysExcluded, holidays_included: holidaysIncluded };
     return res;
   }
 }
