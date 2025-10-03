@@ -1,4 +1,3 @@
-import { makeInvoke } from "@forge/bridge";
 import ForgeReconciler, {
   Box,
   Button,
@@ -10,9 +9,9 @@ import ForgeReconciler, {
   Text,
   Textfield,
 } from "@forge/react";
-import React, { useEffect, useState } from "react";
-import { ResolverTypeDefs } from "../shared/types";
-const invoke = makeInvoke<ResolverTypeDefs>();
+import React from "react";
+//import { ResolverTypeDefs } from "../shared/types";
+//const invoke = makeInvoke<ResolverTypeDefs>();
 
 export default function ConfigIssue() {
   return (
@@ -118,16 +117,6 @@ const rows = [
 ];
 
 const App = () => {
-  const [data, setData] = useState<IssueData | null>(null);
-
-  useEffect(() => {
-    invoke("getData")
-      .then((response) => {
-        setData(response);
-      })
-      .catch((err) => console.error(err));
-  }, []);
-
   return (
     <>
       <Inline rowSpace="space.100" alignBlock="center" alignInline="center" spread="space-between">
