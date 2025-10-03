@@ -1,3 +1,8 @@
 export type ResolverTypeDefs = {
-  getText: () => string;
+  getData: () => IssueData;
+};
+
+export type IssueData = {
+  roles: string[];
+  colleagues: string[];
 };

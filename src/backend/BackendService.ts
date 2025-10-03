@@ -2,18 +2,22 @@ import api, { route } from "@forge/api";
 
 class BackendService {
   async getData() {
-    const response = await api.asApp().requestJira(route`/rest/api/2/issue/HM-32?fields=description`);
-    console.log("Jira API response:", response);
+    const issueKey = "HM-34";
+    const response = await api.asApp().requestJira(route`/rest/api/2/issue/${issueKey}?fields=description`);
 
     if (!response.ok) {
       throw new Error(`Jira API error: ${response.status} ${response.statusText}`);
     }
 
     let data = await response.json();
-    data = JSON.stringify(data);
+    data = data["fields"]["description"];
 
-    // Return the entire response
-    return data;
+    const jsonData = JSON.parse(data);
+    const roles = jsonData["roles"] ?? [];
+    const colleagues = jsonData["colleagues"] ?? [];
+
+    const res = { roles: [JSON.stringify(roles)], colleagues: [JSON.stringify(colleagues)] };
+    return res;
   }
 }
 
