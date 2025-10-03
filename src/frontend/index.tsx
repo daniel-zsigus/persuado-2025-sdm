@@ -7,16 +7,16 @@ const invoke = makeInvoke<ResolverTypeDefs>();
 
 const App = () => {
   const [data, setData] = useState<string | null>(null);
+
   useEffect(() => {
     invoke("getText").then(setData);
   }, []);
 
   return (
     <>
-      <Text>Hello world from frontend!</Text>
-      <Text>{data || "Loading text from backend..."}</Text>
-      <Text>Feature-3</Text>
-      <Text>Feature-4</Text>
+      <Text>Issue Description:</Text>
+      <Text>{data}</Text>
+      <Text>weee</Text>
     </>
   );
 };
