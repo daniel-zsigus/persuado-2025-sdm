@@ -3,7 +3,7 @@ import { ResolverTypeDefs } from "../shared/types";
 import { backendService } from "./BackendService";
 
 export const handler = makeResolver<ResolverTypeDefs>({
-  async getText() {
+  async getData() {
     return backendService.getData();
   },
 });
