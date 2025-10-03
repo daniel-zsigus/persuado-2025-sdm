@@ -16,33 +16,29 @@ const invoke = makeInvoke<ResolverTypeDefs>();
 
 export default function ConfigIssue() {
   return (
-    <>
-      <Stack alignInline="center" space="space.150">
-        <Label labelFor="textfield">
-          <Text size="large" weight="bold" color="color.text.accent.magenta">
-            Config Issue :
-          </Text>
-        </Label>
-        <Inline space="space.100" alignBlock="center">
-          <Textfield name="basic" id="textfield" width={350} defaultValue="KAN-" />
-          <Button appearance="primary">SUBMIT</Button>
-        </Inline>
-      </Stack>
-    </>
+    <Stack alignInline="center" space="space.150">
+      <Label labelFor="textfield">
+        <Text size="large" weight="bold" color="color.text.accent.magenta">
+          Config Issue :
+        </Text>
+      </Label>
+      <Inline space="space.100" alignBlock="center">
+        <Textfield name="basic" id="textfield" width={350} defaultValue="KAN-" />
+        <Button appearance="primary">SUBMIT</Button>
+      </Inline>
+    </Stack>
   );
 }
 
 const EndDatePicker = () => (
-  <>
-    <Stack space="space.050">
-      <Label labelFor="textfield">
-        <Text size="large" weight="bold" color="color.text.accent.magenta">
-          Choose End Date :
-        </Text>
-      </Label>
-      <DatePicker shouldShowCalendarButton id="End-Date-Picker" />
-    </Stack>
-  </>
+  <Stack space="space.050">
+    <Label labelFor="textfield">
+      <Text size="large" weight="bold" color="color.text.accent.magenta">
+        Choose End Date :
+      </Text>
+    </Label>
+    <DatePicker shouldShowCalendarButton id="End-Date-Picker" />
+  </Stack>
 );
 
 const head = {
