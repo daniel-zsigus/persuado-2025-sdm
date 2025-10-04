@@ -10,8 +10,6 @@ import ForgeReconciler, {
   Textfield,
 } from "@forge/react";
 import React from "react";
-//import { ResolverTypeDefs } from "../shared/types";
-//const invoke = makeInvoke<ResolverTypeDefs>();
 
 export default function ConfigIssue() {
   return (
