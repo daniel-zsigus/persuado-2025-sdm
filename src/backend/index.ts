@@ -4,6 +4,12 @@ import { backendService } from "./BackendService";
 
 export const handler = makeResolver<ResolverTypeDefs>({
   async getData() {
-    return backendService.getData();
+    return backendService.getConfigData();
+  },
+  async getTableData(request) {
+    const { endDate } = request.payload;
+    console.log("Received endDate:", endDate);
+    // Implement logic to fetch and return table data based on endDate
+    return [];
   },
 });

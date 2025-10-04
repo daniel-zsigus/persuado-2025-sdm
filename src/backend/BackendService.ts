@@ -2,7 +2,7 @@ import api, { route } from "@forge/api";
 import { OvertimeConfig } from "../shared/types";
 
 class BackendService {
-  async getData() {
+  async getConfigData(): Promise<OvertimeConfig> {
     const issueKey = "HM-34";
     const response = await api.asApp().requestJira(route`/rest/api/2/issue/${issueKey}?fields=description`);
 
@@ -14,14 +14,7 @@ class BackendService {
     const description = responseJson["fields"]["description"];
 
     const jsonData: OvertimeConfig = JSON.parse(description);
-    const roles = jsonData.roles ?? [];
-    const colleagues = jsonData.colleagues ?? [];
-
-    const holidaysExcluded = jsonData.holidays_excluded;
-    const holidaysIncluded = jsonData.holidays_included;
-
-    const res = { roles, colleagues, holidays_excluded: holidaysExcluded, holidays_included: holidaysIncluded };
-    return res;
+    return jsonData;
   }
 }
 
