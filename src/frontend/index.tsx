@@ -1,3 +1,4 @@
+import { makeInvoke } from "@forge/bridge";
 import ForgeReconciler, {
   Box,
   Button,
@@ -9,24 +10,29 @@ import ForgeReconciler, {
   Text,
   Textfield,
 } from "@forge/react";
-import React from "react";
-//import { ResolverTypeDefs } from "../shared/types";
-//const invoke = makeInvoke<ResolverTypeDefs>();
+import React, { useEffect, useState } from "react";
+import { ResolverTypeDefs } from "../shared/types";
 
-export default function ConfigIssue() {
-  return (
-    <Stack alignInline="center" space="space.150">
-      <Label labelFor="textfield">
-        <Text size="large" weight="bold" color="color.text.accent.magenta">
-          Config Issue :
-        </Text>
-      </Label>
-      <Inline space="space.100" alignBlock="center">
-        <Textfield name="basic" id="textfield" width={350} defaultValue="KAN-" />
-        <Button appearance="primary">SUBMIT</Button>
-      </Inline>
-    </Stack>
-  );
+const invoke = makeInvoke<ResolverTypeDefs>();
+
+function ConfigIssue({ userRule }: { userRule: string | null }) {
+  if (userRule == "HR") {
+    return (
+      <Stack alignInline="center" space="space.150">
+        <Label labelFor="textfield">
+          <Text size="large" weight="bold" color="color.text.accent.magenta">
+            Config Issue :
+          </Text>
+        </Label>
+        <Inline space="space.100" alignBlock="center">
+          <Textfield name="basic" id="textfield" width={350} defaultValue="KAN-" />
+          <Button appearance="primary">SUBMIT</Button>
+        </Inline>
+      </Stack>
+    );
+  } else {
+    return <></>;
+  }
 }
 
 const EndDatePicker = () => (
@@ -117,11 +123,16 @@ const rows = [
 ];
 
 const App = () => {
+  const [userRule, setUserRule] = useState<string | null>(null);
+
+  useEffect(() => {
+    invoke("getUserRule").then(setUserRule);
+  }, []);
   return (
     <>
       <Inline rowSpace="space.100" alignBlock="center" alignInline="center" spread="space-between">
         <EndDatePicker />
-        <ConfigIssue />
+        <ConfigIssue userRule={userRule} />
       </Inline>
 
       <Box padding="space.200" />

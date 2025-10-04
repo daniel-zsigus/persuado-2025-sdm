@@ -23,6 +23,27 @@ class BackendService {
     const res = { roles, colleagues, holidays_excluded: holidaysExcluded, holidays_included: holidaysIncluded };
     return res;
   }
+
+  async getUserRule() {
+    const res = await api.asUser().requestJira(route`/rest/api/3/myself`);
+    const user = await res.json();
+
+    const groupsRes = await api.asApp().requestJira(route`/rest/api/3/user/groups?accountId=${user.accountId}`);
+    const groupsData = (await groupsRes.json()) as { name: string }[];
+    const groupNames = groupsData.map((g) => g.name);
+
+    if (!groupNames || groupNames.length === 0) {
+      return "User";
+    }
+
+    if (groupNames.includes("Persuado Backoffice") || groupNames.includes("Persuado Management")) {
+      return "HR";
+    } else if (groupNames.includes("Persuado Project Managers")) {
+      return "PM";
+    } else {
+      return "User";
+    }
+  }
 }
 
 export const backendService = new BackendService();

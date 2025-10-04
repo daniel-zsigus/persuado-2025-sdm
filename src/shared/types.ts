@@ -1,5 +1,6 @@
 export type ResolverTypeDefs = {
   getData: () => OvertimeConfig;
+  getUserRule: () => string;
 };
 
 // Role definition

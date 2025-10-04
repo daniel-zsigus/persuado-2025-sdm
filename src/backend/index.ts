@@ -6,4 +6,7 @@ export const handler = makeResolver<ResolverTypeDefs>({
   async getData() {
     return backendService.getData();
   },
+  async getUserRule() {
+    return backendService.getUserRule();
+  },
 });
