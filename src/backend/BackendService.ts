@@ -76,7 +76,7 @@ class BackendService {
     const groupNames = groupsData.map((g) => g.name);
     console.log({ groupNames });
 
-    const configData = await this.getData();
+    const configData = await this.getConfigData();
 
     const roleMap = new Map<string, string[]>();
 
