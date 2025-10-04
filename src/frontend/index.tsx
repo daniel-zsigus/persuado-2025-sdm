@@ -60,15 +60,7 @@ const head = {
       key: "Start Date",
       content: (
         <Text weight="medium" size="small" color="color.text.accent.magenta">
-          Start
-        </Text>
-      ),
-    },
-    {
-      key: "End Date",
-      content: (
-        <Text weight="bold" size="small" color="color.text.accent.magenta">
-          End
+          Start Date
         </Text>
       ),
     },
@@ -84,7 +76,7 @@ const head = {
       key: "Expected Hours",
       content: (
         <Text weight="bold" size="small" color="color.text.accent.magenta">
-          Expected
+          Expected Hours
         </Text>
       ),
     },
@@ -92,7 +84,7 @@ const head = {
       key: "Worked Now",
       content: (
         <Text weight="medium" size="small" color="color.text.accent.magenta">
-          Worked
+          Worked Hours
         </Text>
       ),
     },
@@ -113,10 +105,9 @@ const rows = [
     cells: [
       { key: "User", content: "Nabil Tallal" },
       { key: "Start Date", content: "13-10-2025" },
-      { key: "End Date", content: "13-10-2026" },
       { key: "Expected Daily Hours", content: "8" },
       { key: "Expected Hours", content: "430" },
-      { key: "Worked Now", content: "350" },
+      { key: "Worked Now", content: "442" },
       { key: "OverTime Hours", content: "12" },
     ],
   },
@@ -130,6 +121,13 @@ const App = () => {
   }, []);
   return (
     <>
+      <Text color="color.text.accent.magenta.bolder" weight="bold" align="center" size="large">
+        {" "}
+        Current User Role : {userRule}{" "}
+      </Text>
+
+      <Box padding="space.200" />
+
       <Inline rowSpace="space.100" alignBlock="center" alignInline="center" spread="space-between">
         <EndDatePicker />
         <ConfigIssue userRule={userRule} />
