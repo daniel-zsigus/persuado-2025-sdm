@@ -1,5 +1,8 @@
-//import { backendService } from "../BackendService";
+import { Role } from "../../shared/types";
 
-test("test backend service getData return value", () => {
-  expect("1").toBe("1");
+test("dummy test", () => {
+  const role: Role = { name: "Admin", membergroups: ["jira-administrators"] };
+  expect(role).toBeDefined();
+  expect(role.name).toBe("Admin");
+  expect(role.membergroups).toContain("jira-administrators");
 });
