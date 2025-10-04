@@ -1,19 +1,8 @@
 import api, { fetch, route } from "@forge/api";
-import { OvertimeConfig } from "../shared/types";
-
-interface UserReportsResponse {
-  userReports: {
-    accountId: string;
-    daySummaries: {
-      date: string;
-      nonWorkInSeconds: number;
-      realWorkInSeconds: number;
-    }[];
-  }[];
-}
+import { OvertimeConfig, UserReportsResponse } from "../shared/types";
 
 class BackendService {
-  async getData() {
+  async getConfigData(): Promise<OvertimeConfig> {
     const issueKey = "HM-34";
     const response = await api.asApp().requestJira(route`/rest/api/2/issue/${issueKey}?fields=description`);
 
@@ -27,7 +16,6 @@ class BackendService {
     const jsonData: OvertimeConfig = JSON.parse(description);
     const roles = jsonData.roles ?? [];
     const colleagues = jsonData.colleagues ?? [];
-
     const holidaysExcluded = jsonData.holidays_excluded;
     const holidaysIncluded = jsonData.holidays_included;
 
@@ -56,12 +44,13 @@ class BackendService {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-everit-api-key": apiKey,
+        "X-Everit-API-Key": apiKey,
         "x-requested-by": "ForgeApp",
         "x-timezone": "Europe/Budapest",
       },
       body: JSON.stringify(body),
     });
+    console.log("Fetched worklog data:", response);
 
     if (!response.ok) {
       const text = await response.text();
@@ -73,7 +62,7 @@ class BackendService {
   }
 
   private async getEveritApiKey(): Promise<string> {
-    return "YOUR_EVERIT_API_KEY";
+    return "eyJhY2NvdW50SWQiOiI3MTIwMjA6MmJlNzQwNmEtNzAzNi00YTlhLTg0Y2UtODNmZGJmNGNhNWU4IiwiY2xpZW50SWQiOjI1ODYxLCJzZWNyZXQiOiJZS2RqTi8yRy80R0xzeXA0cmx3eDFISE5HYmZEdTN6MlZJdk1lem1FUFBmTXpVK3RVc1JNYUZnVjh4QU9DZ2NKVlduN2ZiOVJ3OXYydEhyU0xTWGRPQVx1MDAzZFx1MDAzZCJ9";
   }
 }
 

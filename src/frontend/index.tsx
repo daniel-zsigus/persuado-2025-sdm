@@ -1,3 +1,4 @@
+import { makeInvoke } from "@forge/bridge";
 import ForgeReconciler, {
   Box,
   Button,
@@ -9,7 +10,9 @@ import ForgeReconciler, {
   Text,
   Textfield,
 } from "@forge/react";
-import React from "react";
+import React, { useEffect } from "react";
+import { ResolverTypeDefs } from "../shared/types";
+const invoke = makeInvoke<ResolverTypeDefs>();
 
 export default function ConfigIssue() {
   return (
@@ -115,6 +118,10 @@ const rows = [
 ];
 
 const App = () => {
+  useEffect(() => {
+    invoke("getWorklogData");
+  }, []);
+
   return (
     <>
       <Inline rowSpace="space.100" alignBlock="center" alignInline="center" spread="space-between">

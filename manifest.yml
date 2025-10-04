@@ -19,5 +19,9 @@ app:
     architecture: arm64
   id: ari:cloud:ecosystem::app/5b17b102-4ef0-45c0-82ef-a7a7da484d48
 permissions:
+  external:
+    fetch:
+      backend:
+        - https://jttp-cloud.everit.biz/timetracker/api/latest/public/report/fillchecker
   scopes:
     - read:jira-work
