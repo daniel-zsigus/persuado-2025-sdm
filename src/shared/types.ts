@@ -1,5 +1,6 @@
 export type ResolverTypeDefs = {
   getData: () => OvertimeConfig;
+  getUserRule: () => string;
   getTableData: (args: { endDate: string }) => TableRowData[];
   getWorklogData: (args: { dateFrom: string; dateUntil: string; users: string[] }) => TableRowData[];
 };

@@ -64,6 +64,40 @@ class BackendService {
   private async getEveritApiKey(): Promise<string> {
     return "eyJhY2NvdW50SWQiOiI3MTIwMjA6MmJlNzQwNmEtNzAzNi00YTlhLTg0Y2UtODNmZGJmNGNhNWU4IiwiY2xpZW50SWQiOjI1ODYxLCJzZWNyZXQiOiJZS2RqTi8yRy80R0xzeXA0cmx3eDFISE5HYmZEdTN6MlZJdk1lem1FUFBmTXpVK3RVc1JNYUZnVjh4QU9DZ2NKVlduN2ZiOVJ3OXYydEhyU0xTWGRPQVx1MDAzZFx1MDAzZCJ9";
   }
+
+  async getUserRule() {
+    const res = await api.asUser().requestJira(route`/rest/api/3/myself`);
+    const user = await res.json();
+    console.log({ user });
+    const accountId = user["accountId"];
+    console.log({ accountId });
+    const groupsRes = await api.asApp().requestJira(route`/rest/api/3/user/groups?accountId=${accountId}`);
+    const groupsData = (await groupsRes.json()) as { name: string }[];
+    const groupNames = groupsData.map((g) => g.name);
+    console.log({ groupNames });
+
+    const configData = await this.getConfigData();
+
+    const roleMap = new Map<string, string[]>();
+
+    for (const role of configData.roles) {
+      roleMap.set(role.name, role.membergroups);
+    }
+
+    console.log(roleMap);
+
+    if (!groupNames || groupNames.length === 0) {
+      return "User";
+    }
+
+    for (const [roleName, roleGroups] of roleMap.entries()) {
+      if (groupNames.some((group) => roleGroups.includes(group))) {
+        return roleName === "HR Administrator" || roleName === "Project Manager" ? roleName : "User";
+      }
+    }
+
+    return "user";
+  }
 }
 
 export const backendService = new BackendService();

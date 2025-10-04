@@ -28,4 +28,7 @@ export const handler = makeResolver<ResolverTypeDefs>({
     console.log("getTableData called with endDate:", endDate);
     return [];
   },
+  async getUserRule() {
+    return backendService.getUserRule();
+  },
 });
